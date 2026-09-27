@@ -70,6 +70,37 @@ Practice Operational Boundary: 100% Asynchronous, meeting-free execution. Delive
                                                        [Primary Cloud General Ledger]
                                                        └── Multi-Currency Auto-Reconciliation Engine
 
+### 📦 Reference Blueprint: Product Manufacturing & Inventory Assembly Routing
+
+This workflow maps how raw materials convert into finished stock and move cleanly to the ledger without manual tracking errors.
+
+[Raw Materials Ordered] ──(Supplier Commercial Invoice)──> [Inventory Control Node]
+                                                                  │
+                                                    (Direct Component Allocation)
+                                                                  ▼
+                                                      [Work-in-Progress (WIP)]
+                                                      └── Track Raw Material SKUs
+                                                      └── Add Inbound Freight/Duties
+                                                      └── Add Direct Labor Costs
+                                                                  │
+                                                     (Finished Goods Assembly)
+                                                                  ▼
+                                                     [Available Finished Stock Assets]
+                                                      └── Value = Raw + Freight + Labor
+                                                                  │
+                                                    (Shopify / Amazon Order Ship)
+                                                                  ▼
+                                                     [Cloud General Ledger System]
+                                                      └── Debit: Cost of Goods Sold (COGS)
+                                                      └── Credit: Finished Goods Asset
+
+#### Standard Operational SOP for Manufacturing Accounting:
+
+1. **The Component Track:** Do not expense raw materials the moment you buy them. Log incoming components (fabrics, ingredients, packaging) into an asset account called **Raw Materials Inventory**.
+2. **The Landed Cost True-Up:** Allocate inbound shipping, customs, and direct assembly labor costs straight to the raw components. This gives you the true cost to create one finished unit.
+3. **The Assembly Build:** When items are finished and ready to sell, log an Assembly Adjustment in Xero or QuickBooks Advanced. This automatically lowers your Raw Materials count and increases your **Finished Goods Inventory** value.
+4. **The COGS Trigger:** When a customer buys a finished product on Shopify or Amazon, the integration software triggers a journal entry. This shifts the unit value out of your Inventory Assets and directly into **Cost of Goods Sold (COGS)**, giving you an exact, real-time look at your true product margins.
+
 ### 2. ERP Database Migrations (Legacy Systems to Cloud Ledgers)
 *   **Data Integrity Mapping:** Extraction and transformation logic to safely migrate high-volume historical transaction pools from QuickBooks Online, NetSuite, or legacy spreadsheets into customized Xero environments.
 *   **Variance Isolation Scans:** Specialized testing frameworks to detect double-counting errors and data drops occurring across active software API endpoints.
